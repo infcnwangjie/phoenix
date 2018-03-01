@@ -1,0 +1,43 @@
+Phoneix is a hbase skin ,offer sql function like hive.
+
+follow website ,i should read:
+
+
+https://stackoverflow.com/questions/27402688/how-to-install-apache-phoenix-to-ambari-1-7-with-hbase
+
+
+
+
+http://www.codeclip.com/3670.html
+
+
+如下所示：
+wget http://mirrors.cnnic.cn/apache/phoenix/phoenix-4.7.0-HBase-1.0/bin/phoenix-4.7.0-HBase-1.0-bin.tar.gz
+
+
+
+tar zxvf phoenix-4.7.0-HBase-1.0-bin.tar.gz
+
+
+cp ~/phoenix-4.7.0-HBase-1.0-bin/*.jar ~/hadoop/hbase-1.0.1.1/lib/
+
+scp ~/phoenix-4.7.0-HBase-1.0-bin/*.jar root@192.168.137.3:~/hadoop/hbase-1.0.1.1/lib/
+
+
+cp ~/hadoop/hbase-1.0.1.1/conf/hbase-site.xml ~/phoenix-4.7.0-HBase-1.0-bin/bin/
+
+cp ~/hadoop/hadoop-2.7.1/etc/hadoop/hdfs-site.xml ~/phoenix-4.7.0-HBase-1.0-bin/bin/
+
+
+
+~/hadoop/hbase-1.0.1.1/bin/stop-hbase.sh
+
+~/hadoop/hbase-1.0.1.1/bin/start-hbase.sh
+
+#chmod 777 ~/phoenix-4.7.0-HBase-1.0-bin/bin/sqlline.py
+
+~/phoenix-4.7.0-HBase-1.0-bin/bin/sqlline.py localhost
+
+
+
+
