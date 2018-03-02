@@ -1,0 +1,66 @@
+https://pan.baidu.com/s/1qXQENiG
+
+
+
+一．下载安装
+
+ 
+
+　　从网址http://www.squirrelsql.org/下载相应版本的squirrel的安装jar包，比如下载squirrel-sql-3.7-standard.jar;
+
+　　Window下安装：
+
+　　CMD进入Window控制台，输入java -jar squirrel-sql-3.7-standard.jar 显示安装界面：
+
+ 　　
+
+　　　　
+二．配置连接phonenix
+1.配置squirrel
+
+　　解压的phoenix-4.5.2-HBase-1.1-bin.tar.gz包的主目录下将如下几个jar包拷贝到squirrel安装目录的lib下，例如本机路径是D:\soft\squirrel-sql-3.7\lib
+
+ 　　
+
+　　在安装目录下双击squirrel-sql.bat
+
+　　点击左侧的Drivers，添加图标
+
+ 　　
+
+　　在出现的窗口中填写如下项
+
+　　　　Name：就是个名字任意取就可以，这里我叫phoenix
+
+　　　　Example：jdbc:phoenix:192.168.57.4,192.168.57.5,192.168.57.6:2181(这里是你的phonenix的jdbc地址，注意端口也可以不写，多个用逗号隔开)
+
+　　　　Class Name：org.apache.phoenix.jdbc.PhoenixDriver
+
+ 　　　　
+2.连接phonenix
+
+　　点击Aiiasses，点击右边的添加图标
+
+ 　　
+
+　　出现以下窗口
+
+ 　　
+
+　　这里还是名字随意写，driver要选择刚才配置的可用的driver，我们刚才配置的是phonenix
+
+　　url这里就是连接phonex的url选择了phonenix的driver以后自动出现也可以改，user name就是phonenix连接的主机的用户名，密码就是该机器的密码，点击自动登录
+
+ 　　
+
+　　然后点击test，显示连接成功即可（在这里最好不要直接点OK,先点Test，连接成功了再OK）
+
+　　
+
+　　注意：这里可能链接不上，原因是C:\Windows\System32\drivers\etc下面的hosts文件没有配置路由表，所有要配置一下，如下图
+
+ 　　
+
+　　双击创建的连接即可
+
+ 　　
