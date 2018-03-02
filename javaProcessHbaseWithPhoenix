@@ -1,0 +1,53 @@
+用Phoenix Java api操作HBase
+
+开发环境准备：eclipse3.5、jdk1.7、window8、hadoop2.2.0、hbase0.98.0.2、phoenix4.3.0
+
+　　1、从集群拷贝以下文件：core-site.xml、hbase-site.xml、hdfs-site.xml文件放到工程src下
+
+　　2、把phoenix的phoenix-4.3.0-client.jar和phoenix-core-4.3.0.jar添加到工程classpath
+
+　　3、配置集群中各节点的hosts文件，把客户端的hostname：IP添加进去
+
+　　4、在客户端host文件中加入集群的hostname和IP
+
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+ 
+public class Phoenix_Test {
+    /**
+     * 使用phoenix提供的api操作hbase读取数据
+     */
+    public static void main(String[] args) throws Throwable {
+        try {
+            // 下面的驱动为Phoenix老版本使用2.11使用，对应hbase0.94+
+            // Class.forName("com.salesforce.phoenix.jdbc.PhoenixDriver");
+ 
+            // phoenix4.3用下面的驱动对应hbase0.98+
+            Class.forName("org.apache.phoenix.jdbc.PhoenixDriver");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        // 这里配置zookeeper的地址，可单个，也可多个。可以是域名或者ip
+        String url = "jdbc:phoenix:node5,node6,node7";
+        // String url =
+        // "jdbc:phoenix:41.byzoro.com,42.byzoro.com,43.byzoro.com:2181";
+        Connection conn = DriverManager.getConnection(url);
+        Statement statement = conn.createStatement();
+        String sql = "select count(1) as num from WEB_STAT";
+        long time = System.currentTimeMillis();
+        ResultSet rs = statement.executeQuery(sql);
+        while (rs.next()) {
+            int count = rs.getInt("num");
+            System.out.println("row count is " + count);
+        }
+        long timeUsed = System.currentTimeMillis() - time;
+        System.out.println("time " + timeUsed + "mm");
+        // 关闭连接
+        rs.close();
+        statement.close();
+        conn.close();
+    }
+}
