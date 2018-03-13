@@ -1,0 +1,20 @@
+if you have not table in hbase,you can use pheonix create table and create view;
+
+
+if in your hbase eist a hbase table  such as 'tabl1',you could not create view for 'table1'.
+
+
+
+when your hbase have namespace,in pheonix,you can do like this to contact with hbase:
+
+create table "test:tj123" ("ROW" varchar primary key,"f"."name")
+
+
+
+and your hbase will be like this:
+
+create_namespace 'test'
+
+create table 'test:tj123','f'
+
+
