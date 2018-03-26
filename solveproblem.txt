@@ -1,0 +1,13 @@
+遇到一个问题，phoenix和hbase结合的时候，phoenix无法获取完整的hbase数据
+，有一个弱弱的直觉，phoenix无法获取到hbase的分区信息，经验证，果真如此：
+有两个表，一个没有分区导入18万数据；另外一个表，建立分区里面区区6万数据；
+但是前者可以获取完整数据，并可以统计总数，但后者就只能获取部分数据，并且统计数目也不准确。
+然后为了验证这个问题，使用下面语句：
+在hbase中建立两个表，都使用分区，与之对应的phoenix表一个明确指定分区，一个不指定分区：
+create 'hp_1','f',SPLITS=>['1','2','3','4','5','6','7','8','9','A','B','C','D','E']
+ create 'hp_2','f',SPLITS=>['1','2','3','4','5','6','7','8','9','A','B','C','D','E']
+在phoenix中：
+create table "hp_1" ("ROW" varchar primary key,"f"."c1" varchar,"f"."c2" varchar);
+create table "hp_2" ("ROW" varchar primary key,"f"."c1" varchar,"f"."c2" varchar) split on('1','2','3','4','5','6','7','8','9','A','B','C','D','E');
+
+结果统计结果都是完整的，然后想起之前干的一个蠢事，我之前竟然删过function表，虽然经过恢复，也只是恢复了部分数据。
